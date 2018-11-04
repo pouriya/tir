@@ -818,7 +818,7 @@ if __name__ == '__main__':
         print()
         logger.error('It seems that something was changed in time.ir or themes!\n'\
                      'Pleas open an issue in:\n'\
-                     '\thttps://github.com/Pouriya-Jahanbakhsh/timeIr/issues/new\n'\
+                     '\thttps://github.com/Pouriya-Jahanbakhsh/tir/issues/new\n'\
                      'with below details:')
         traceback.print_exc()
         print()

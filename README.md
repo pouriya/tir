@@ -28,7 +28,7 @@ First you need to have **Python 3.^5** installed. Most of other dependencies are
 ~/path/to/tir $ [sudo] make install
 ```  
 Then you have to have `tir` command everywhere:
-```sh
+```text
 /x/y/z $ tir
 Emruz: 1-Shanbeh  13   Aban(08)   1397   Pa'eez  
 Today:   Sunday   04 November(11) 2018   Autumn  
@@ -68,6 +68,7 @@ System time: 20:30:16
 ```  
 
 ## Arguments
+```sh
 root@codefather:~/tir # tir -h
 Usage: tir [options]
 

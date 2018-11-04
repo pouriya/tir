@@ -804,7 +804,7 @@ if __name__ == '__main__':
             notifier = NotifyHolidays(days)
             try:
                 notifier.notify()
-            except FileNotFoundError:
+            except Exception as _:
                 error_text = 'command {!r} could not found on this system'.format(notifier.command)
                 if opts.color:
                     error_text = '\033[1;30m' + error_text + '\033[0m' # gray (dark)

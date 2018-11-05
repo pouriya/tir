@@ -114,7 +114,9 @@ On `FreeBSD` you need `gmake` instead of `make`:
 
 ## Arguments
 ```sh
-root@codefather:~/tir # tir -h
+root@codefather:~/tir $ tir -h
+```
+```text
 Usage: tir [options]
 
 Options:

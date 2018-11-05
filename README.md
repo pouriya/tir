@@ -2,10 +2,21 @@
 Have [**time.ir**](http://time.ir) in shell!
 
 
-![tir-screenshot]()
+![tir-screenshot](https://github.com/Pouriya-Jahanbakhsh/tir/releases/download/18.11.6/tir-18.11.6.png)
 
 
 ## Installation
+#### Download
+Using `git`:  
+```sh
+~ $ git clone --depth 1 --branch 18.11.6 https://github.com/Pouriya-Jahanbakhsh/tir && cd tir
+~/tir $
+```
+Using `wget`:  
+```sh
+~ $ wget https://github.com/Pouriya-Jahanbakhsh/tir/archive/18.11.6.tar.gz && tar xf 18.11.6.tar.gz && cd tir-18.11.6
+~/tir-18.11.6 $
+```
 
 #### Dependencies
 First you need to have **Python 3.^5** installed. Most of other dependencies are by default installed on most Linuxes.  

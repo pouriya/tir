@@ -123,3 +123,6 @@ Emruz: 3-Shanbeh  15   Aban(08)   1397   Pa'eez
 
 Powered by http://time.ir
 ```
+
+# Contributing
+I love pull requests from everyone ! For more info see `CONTRIBUTING.md` file.

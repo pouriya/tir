@@ -25,7 +25,7 @@ First you need to have **Python 3.^5** installed. Most of other dependencies are
     ```  
     On FreeBSD:  
     ```sh
-    ~ # pkg install py36-r
+    ~ # pkg install py36-requests
     ```  
 * **lxml**  
     On most linux distributions:  
@@ -44,7 +44,7 @@ Note that on `FreeBSD` it's better to link your `python3.*` to `python3`:
 ```
 Or edit `Makefile` and first line of `./bin/crawler.py` and place your own Python 3 command
 
-### install `tir`
+#### install `tir` itself
 On Linux distributions run:
 ```sh
 ~/path/to/tir $ sudo make install

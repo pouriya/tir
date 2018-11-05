@@ -27,5 +27,5 @@ setup(name='tir'
      ,maintainer_email=extract_metaitem('email')
      ,platforms=['Any']
      ,packages=find_packages()
-     ,install_requires=['requests']
+     ,install_requires=['requests', 'lxml']
      ,setup_requires=['pytest-runner'])

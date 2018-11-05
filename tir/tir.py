@@ -617,11 +617,11 @@ class NotifyHolidays(Notify):
         (day1, day2) = self._find_two_next_days(days)
         
         if day1 and day1.is_holiday and day2 and day2.is_holiday:
-            text = 'farda va pasfarda tatilan'
+            text = 'فردا و پس فردا تعطیل هستند'
         elif day1 and day1.is_holiday:
-            text = 'farda tatile'
+            text = 'فردا تعطیل است'
         elif day2 and day2.is_holiday:
-            text = 'pasfarda tatile'
+            text = 'پس فردا تعطیل است'
         else:
             text = None
 

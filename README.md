@@ -9,30 +9,57 @@ Have [**time.ir**](time.ir) in shell!
 
 #### Dependencies
 First you need to have **Python 3.^5** installed. Most of other dependencies are by default installed on most Linuxes.  
-* **setuptools**
+* **setuptools**  
+    On most linux distributions:  
     ```sh
-    ~ $ [sudo] pip --disable-pip-version-check setuptools
+    ~ $ sudo apt install python3-setuptools
     ```  
-* **requests**
+    On FreeBSD:  
     ```sh
-    ~ $ [sudo] pip --disable-pip-version-check requests
-    ```  
-* **lxml**
-    `lxml` needs packages `libxml2` and `libxslt` installed
+    ~ # pkg install py36-setuptools
+    ```
+* **requests**  
+    On most linux distributions:  
     ```sh
-    ~ $ [sudo] pip --disable-pip-version-check lxml
+    ~ $ sudo apt install python3-requests
     ```  
+    On FreeBSD:  
+    ```sh
+    ~ # pkg install py36-r
+    ```  
+* **lxml**  
+    On most linux distributions:  
+    ```sh
+    ~ $ sudo apt install python3-lxml
+    ```  
+    On FreeBSD:  
+    ```sh
+    ~ # pkg install py36-lxml
+    ```  
+    Note that `lxml` itself needs `libxml2` and `libxslt` to compile.
 
-### tir
+Note that on `FreeBSD` it's better to link your `python3.*` to `python3`:
 ```sh
-~/path/to/tir $ [sudo] make install
+~ # ln -s /usr/local/bin/python3.6 /usr/local/bin/python3
+```
+Or edit `Makefile` and first line of `./bin/crawler.py` and place your own Python 3 command
+
+### install `tir`
+On Linux distributions run:
+```sh
+~/path/to/tir $ sudo make install
 ```  
-Then you have to have `tir` command everywhere:
+On `FreeBSD` you need `gmake` instead of `make`:
+```sh
+~/path/to/tir # gmake install
+```  
+
+Then you have `tir` command everywhere:
 ```text
 /x/y/z $ tir
-Emruz: 1-Shanbeh  13   Aban(08)   1397   Pa'eez  
-Today:   Sunday   04 November(11) 2018   Autumn  
-System time: 20:30:16
+Emruz: 3-Shanbeh  15   Aban(08)   1397   Pa'eez  
+Today:  Tuesday   06 November(11) 2018   Autumn  
+System time: 00:04:03
  ________  ________  ________  ________  ________  ________  ________
 | Shanbe ||  Yek   ||   Do   ||   Se   || Chahar ||  Panj  || Jom'eh |
  ________  ________  ________  ________  ________  ________  ________ 
@@ -60,11 +87,18 @@ System time: 20:30:16
 |   26   ||   27   ||   28   ||   29   ||   30   ||   01   ||   02   |
 | 09  17 || 10  18 || 11  19 || 12  20 || 13  21 || 14  22 || 15  23 |
 |________||________||________||________||________||________||________|
+
+Powered by http://time.ir
 ```
 
 ## Uninstallation
+On Linux distributions run:
 ```sh
-~/path/to/tir $ [sudo] make uninstall
+~/path/to/tir $ sudo make uninstall
+```  
+On `FreeBSD` you need `gmake` instead of `make`:
+```sh
+~/path/to/tir # gmake uninstall
 ```  
 
 ## Arguments
@@ -81,9 +115,11 @@ Options:
   -C, --color      Does not show colored text
   -q, --quote      Does not notify for quote
   -H, --holidays   Does not notify for holidays
+  -a, --about      shows program's description and exits
 ```
 So for example `tir -s -g -c -C -q -H` will result:
 ```sh
-Emruz: 1-Shanbeh  13   Aban(08)   1397   Pa'eez
-```
+Emruz: 3-Shanbeh  15   Aban(08)   1397   Pa'eez  
 
+Powered by http://time.ir
+```

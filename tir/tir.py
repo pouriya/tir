@@ -709,6 +709,12 @@ if __name__ == '__main__':
                  ,default=True)
     opts = op.parse_args()[0]
 
+    def warn_notifier_error(command, exception):
+        error_text = 'Notifier ERROR: could not work with command {!r} on this system'.format(command)
+        if opts.color:
+                error_text = '\033[1;30m' + error_text + '\033[0m' # gray (dark)
+        print(error_text)
+
     def main():
         data = Request().get()
         transformers = {1: find_dates
@@ -791,22 +797,16 @@ if __name__ == '__main__':
             notifier = NotifyQuote(quote)
             try:
                 notifier.notify()
-            except Exception as _:
-                error_text = 'could not work withcommand {!r} on this system'.format(notifier.command)
-                if opts.color:
-                    error_text = '\033[1;30m' + error_text + '\033[0m' # gray (dark)
-                print(error_text)
+            except Exception as exception:
+                warn_notifier_error(notifier.command, exception)
 
         if opts.holidays:
             days = transformed[2]
             notifier = NotifyHolidays(days)
             try:
                 notifier.notify()
-            except Exception as _:
-                error_text = 'could not work withcommand {!r} on this system'.format(notifier.command)
-                if opts.color:
-                    error_text = '\033[1;30m' + error_text + '\033[0m' # gray (dark)
-                print(error_text)
+            except Exception as exception:
+                warn_notifier_error(notifier.command, exception)
 
     status_code = 0
     try:

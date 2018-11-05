@@ -2,7 +2,7 @@
 Have [**time.ir**](http://time.ir) in shell!
 
 
-![tir-screenshot](https://github.com/Pouriya-Jahanbakhsh/tir/releases/download/18.11.6/tir-18.11.6.png)
+![tir-screenshot](https://user-images.githubusercontent.com/20663776/48028608-d48f0000-e143-11e8-8aca-6cae76e20c35.png)
 
 
 ## Installation

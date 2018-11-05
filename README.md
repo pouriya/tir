@@ -1,5 +1,5 @@
 # `tir`
-Have [**time.ir**](time.ir) in shell!
+Have [**time.ir**](http://time.ir) in shell!
 
 
 ![tir-screenshot]()

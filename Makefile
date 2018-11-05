@@ -1,10 +1,13 @@
+CRAWLER = $(CURDIR)/bin/crawler.py
+EXE = /usr/local/bin/tir
+
 .PHONY: install uninstall
 
 
-install:
+install: uninstall
 	python3 setup.py install
-	chmod a+x ./tir/tir.py
-	ln -s $$PWD/tir/tir.py /usr/local/bin/tir
+	chmod a+x $(CRAWLER)
+	ln -s $(CRAWLER) $(EXE)
 
 uninstall:
-	rm -rf /usr/local/bin/tir
+	rm -rf $(EXE)

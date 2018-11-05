@@ -1,5 +1,3 @@
-#! /usr/bin/env python3
-
 import requests
 import lxml.html
 from collections import namedtuple
@@ -793,8 +791,8 @@ if __name__ == '__main__':
             notifier = NotifyQuote(quote)
             try:
                 notifier.notify()
-            except FileNotFoundError:
-                error_text = 'command {!r} could not found on this system'.format(notifier.command)
+            except Exception as _:
+                error_text = 'could not work withcommand {!r} on this system'.format(notifier.command)
                 if opts.color:
                     error_text = '\033[1;30m' + error_text + '\033[0m' # gray (dark)
                 print(error_text)
@@ -805,7 +803,7 @@ if __name__ == '__main__':
             try:
                 notifier.notify()
             except Exception as _:
-                error_text = 'command {!r} could not found on this system'.format(notifier.command)
+                error_text = 'could not work withcommand {!r} on this system'.format(notifier.command)
                 if opts.color:
                     error_text = '\033[1;30m' + error_text + '\033[0m' # gray (dark)
                 print(error_text)

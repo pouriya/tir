@@ -553,6 +553,8 @@ def main():
 status_code = 0
 try:
     main()
+except KeyboardInterrupt:
+    print()
 except Exception as exception:
     print()
     print()

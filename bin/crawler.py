@@ -523,7 +523,7 @@ def main():
                 if day.is_today:
                     if day.is_holiday:
                         print('*.' * 13 + ' Today is Holiday ' + '.*' * 13)
-                break
+                    break
 
     if opts.quote:
         quote = transformed[3]

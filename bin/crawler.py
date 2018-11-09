@@ -262,7 +262,7 @@ class DrawCalendar:
     def _draw_week_day_numbers(self, week):
         for offset, day in week:
             if day.is_today and day.is_holiday:
-                (type1, type2) = ('o', 'h')
+                (type1, type2) = ('o', 't')
             elif day.is_today:
                 (type1, type2) = ('o', 't')
             elif day.is_disabled:

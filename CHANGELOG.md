@@ -17,4 +17,9 @@
 
     * separate library and crawler  
 
-Generated at 2018-11-06 01:25
+### 18.11.9
+* **Fix(es):**
+
+    * start and end of window color for qamari and gregorian days  
+
+Generated at 2018-11-09 16:51

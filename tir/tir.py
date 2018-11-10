@@ -113,23 +113,25 @@ def find_season(month_number, _type):
     season_name = season_table[int(season_number)-1][season_name_offset]
     return (season_name, season_number)
 
-def transform_number(number):
-    number2 = ''
-    for char in number:
-        unicode_number = ord(char)
-        if 1775 < unicode_number < 1786: # ۰-۹ farsi
-            number2 += chr(unicode_number - 1728) # transform farsi ۰-۹ to 0-9
-            continue
-        if 1631 < unicode_number < 1642: # ۰-۹ arabic
-            number2 += chr(unicode_number - 1584) # transform arabic ۰-۹ to 0-9
-            continue
-        if 47 < ord(char) < 58: # 0-9
-            number2 += char
-            continue
-        raise ValueError('unknown farsi number {!r}'.format(number))
-    if len(number2) == 1:
-        number2 = '0' + number2
-    return number2
+def transform_number(numbers):
+    new_format = ''
+
+    mapping_dictionary = {
+            # Persian numbers
+            '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
+            '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9',
+
+            # Arabic numbers
+            '.': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4',
+            '٥': '5', '٦': '6', '٧': '7', '٨': '8', '٩': '9',
+            }
+
+    for number in numbers:
+        result = mapping_dictionary.get(number, None)
+        if result is None:
+            raise ValueError('unknown farsi number {!r}'.format(number))
+        new_format += result
+    return new_format.zfill(2)
 
 def transform_month(month):
     if len(month) < 3: # Solar months shoudl contain at least 3 characterss

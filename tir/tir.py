@@ -1,16 +1,13 @@
 from collections import namedtuple
+from string import ascii_letters
 
 import requests
 
 import lxml.html
 
-Date = namedtuple('Date', ['year',
-    'season'      # '01'-'03' which means 3rd season
-                          ,'season_name' # e.g. 'Bahar' or 'Spring'
-                          ,'month'       # '01'-'12'
-                          ,'month_name'  # e.g. 'Shahrivar' or 'June'
-                          ,'day'         # '01'-'31'
-                          ,'weekday'])   # e.g. 'Shanbeh' or 'Saturday'
+from .exceptions import TagNotFound
+
+Date = namedtuple('Date', ['year', 'season', 'month', 'month_name', 'day', 'weekday'])
 
 Day = namedtuple('Day', ['is_disabled' # boolean
                         ,'is_today'    # boolean
@@ -28,12 +25,7 @@ Quote = namedtuple('Quote', ['author', 'text'])
 # first element is start and second element is stop
 # for example defining ('\033[1;31m', '\033[0m') as value of 'disabled'
 #  in CalendarTheme, means that print disabled days in Red color.
-CalendarTheme = namedtuple('CalendarTheme', ['disabled'
-                                            ,'holiday'
-                                            ,'today'
-                                            ,'normal'
-                                            ,'solar'
-                                            ,'other_days'])
+CalendarTheme = namedtuple('CalendarTheme', ['disabled', 'holiday', 'today', 'normal', 'solar', 'other_days'])
 
 DateTheme = namedtuple('Date', ['year', 'seasons', 'month', 'month_name', 'weekday', 'day'])
 
@@ -45,7 +37,7 @@ def transform_date(data):
     # for example it may be 'چهارشنبه - ۹ آبان ۱۳۹۷'
     data = data.split('-')
     weekday = data[0].strip()
-    if not is_a_to_z(weekday): # it's farsi
+    if not is_ascii_letters(weekday): # it's farsi
         weekday = transform_weekday(weekday)
     date = transform_date_with_string_month(data[1].strip())
     return (weekday, date)
@@ -67,7 +59,7 @@ def transform_numeral_date(data):
 
 def transform_date_with_string_month(date):
     date = date.split()
-    if is_a_to_z(date[2]):
+    if is_ascii_letters(date[2]):
         (year, day, month) = (date[0], date[1], date[2])
     else: # It's farsi
         (day, month, year) = (transform_number(date[0])
@@ -121,7 +113,6 @@ def find_season(month_number, _type):
     season_name = season_table[int(season_number)-1][season_name_offset]
     return (season_name, season_number)
 
-
 def transform_number(number):
     number2 = ''
     for char in number:
@@ -139,7 +130,6 @@ def transform_number(number):
     if len(number2) == 1:
         number2 = '0' + number2
     return number2
-
 
 def transform_month(month):
     if len(month) < 3: # Solar months shoudl contain at least 3 characterss
@@ -166,19 +156,14 @@ def transform_month(month):
     raise ValueError('unknown solar month {!r}'.format(month))
 
 
-def is_a_to_z(data):
-    for char in data:
-        number = ord(char)
-        if 96 < number < 123: # a-z
-            continue
-        if 64 < number < 91:  # A-Z
-            continue
-        return False
+def is_ascii_letters(string):
+    for character in string:
+        if character not in ascii_letters:
+            return False
     return True
 
-# search funcion and its utilities which used for parsed HTML page:
-
 def search(element, tag, attr, val):
+    """search funcion and its utilities which used for parsed HTML page """
     def _has_attr(sub_element):
         for attr2, val2 in sub_element.attrib.items():
             if type(attr) == tuple and type(val) == tuple:
@@ -213,25 +198,9 @@ def search(element, tag, attr, val):
         raise TagNotFound(tag, attr, val)
     return element
 
-class TagNotFound(Exception):
-    def __init__(self, tag, attr=None, value=None):
-        text = 'could not found HTML tag {!r} '.format(tag)
-        if attr:
-            text += 'with attribute '
-            if type(attr) == tuple:
-                text += 'which should contain {!r} '.format(attr[0])
-            else:
-                text += '{!r} '.format(attr)
-            text += 'and value '
-            if type(value) == tuple:
-                text += 'which should contain {!r}'.format(value[0])
-            else:
-                text += '{!r}'.format(value)
-        Exception.__init__(self, text)
-
 
 class Request:
- """A class which makes request for fetching HTML page """
+    """A class which makes request for fetching HTML page """
     def __init__(self,
             user_agent='Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0',
             headers = {'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'}):

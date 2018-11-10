@@ -1,11 +1,11 @@
 from collections import namedtuple
-from string import ascii_letters
 
 import requests
 
 import lxml.html
 
 from .exceptions import TagNotFound
+from .utils import transform_number
 
 Date = namedtuple('Date', ['year', 'season', 'month', 'month_name', 'day', 'weekday'])
 
@@ -37,11 +37,10 @@ def transform_date(data):
     # for example it may be 'چهارشنبه - ۹ آبان ۱۳۹۷'
     data = data.split('-')
     weekday = data[0].strip()
-    if not is_ascii_letters(weekday): # it's farsi
+    if not weekday.isalpha(): # it's farsi
         weekday = transform_weekday(weekday)
     date = transform_date_with_string_month(data[1].strip())
     return (weekday, date)
-
 
 def transform_numeral_date(data):
     # for example '1397/12/6' or 2018-2-25 which is my birthday :)
@@ -56,17 +55,15 @@ def transform_numeral_date(data):
     season = find_season(int(month), _type)
     return (year, season, month, day)
 
-
 def transform_date_with_string_month(date):
     date = date.split()
-    if is_ascii_letters(date[2]):
+    if date[2].isalpha():
         (year, day, month) = (date[0], date[1], date[2])
     else: # It's farsi
         (day, month, year) = (transform_number(date[0])
                              ,transform_month(date[1])
                              ,transform_number(date[2]))
     return (year, month, day)
-
 
 def transform_weekday(weekday):
     if len(weekday) < 4: # shorter weekdays are شنبه or جمعه
@@ -113,26 +110,6 @@ def find_season(month_number, _type):
     season_name = season_table[int(season_number)-1][season_name_offset]
     return (season_name, season_number)
 
-def transform_number(numbers):
-    new_format = ''
-
-    mapping_dictionary = {
-            # Persian numbers
-            '۰': '0', '۱': '1', '۲': '2', '۳': '3', '۴': '4',
-            '۵': '5', '۶': '6', '۷': '7', '۸': '8', '۹': '9',
-
-            # Arabic numbers
-            '.': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4',
-            '٥': '5', '٦': '6', '٧': '7', '٨': '8', '٩': '9',
-            }
-
-    for number in numbers:
-        result = mapping_dictionary.get(number, None)
-        if result is None:
-            raise ValueError('unknown farsi number {!r}'.format(number))
-        new_format += result
-    return new_format.zfill(2)
-
 def transform_month(month):
     if len(month) < 3: # Solar months shoudl contain at least 3 characterss
         raise ValueError('unknown solar-hijri month {!r}'.format(month))
@@ -156,13 +133,6 @@ def transform_month(month):
             if (not char_numbers[1] or char_numbers[1] == char2_number):
                 return name
     raise ValueError('unknown solar month {!r}'.format(month))
-
-
-def is_ascii_letters(string):
-    for character in string:
-        if character not in ascii_letters:
-            return False
-    return True
 
 def search(element, tag, attr, val):
     """search funcion and its utilities which used for parsed HTML page """

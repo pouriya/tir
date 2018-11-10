@@ -1,13 +1,11 @@
-import requests
-import lxml.html
 from collections import namedtuple
 
+import requests
 
-# named tuples:
-# used for parsed data and themes
+import lxml.html
 
-Date = namedtuple('Date', ['year'        # e.g. '2018'
-                          ,'season'      # '01'-'03' which means 3rd season
+Date = namedtuple('Date', ['year',
+    'season'      # '01'-'03' which means 3rd season
                           ,'season_name' # e.g. 'Bahar' or 'Spring'
                           ,'month'       # '01'-'12'
                           ,'month_name'  # e.g. 'Shahrivar' or 'June'
@@ -21,11 +19,9 @@ Day = namedtuple('Day', ['is_disabled' # boolean
                         ,'gregorian'   # '01'-'31'
                         ,'qamari'])    # '01'-'31'
 
-Time = namedtuple('Time', ['hour'     # '00'-'23'
-                          ,'minute'   # '00'-'59'
-                          ,'second']) # '00'-'59'
+Time = namedtuple('Time', ['hour', 'minute', 'second'])
 
-Quote = namedtuple('Quote', ['author', 'text']) # string
+Quote = namedtuple('Quote', ['author', 'text'])
 
 
 # each item in theme should be 2-sized tuple
@@ -39,16 +35,9 @@ CalendarTheme = namedtuple('CalendarTheme', ['disabled'
                                             ,'solar'
                                             ,'other_days'])
 
-DateTheme = namedtuple('Date', ['year'
-                               ,'seasons'
-                               ,'month'
-                               ,'month_name'
-                               ,'weekday'
-                               ,'day'])
+DateTheme = namedtuple('Date', ['year', 'seasons', 'month', 'month_name', 'weekday', 'day'])
 
-TimeTheme = namedtuple('TimeTheme', ['hour'
-                                    ,'minute'
-                                    ,'second'])
+TimeTheme = namedtuple('TimeTheme', ['hour', 'minute', 'second'])
 
 # parser functions:
 
@@ -221,11 +210,10 @@ def search(element, tag, attr, val):
 
     element = _search(element, tag, attr, val)
     if element == None:
-        raise _TagNotFound(tag, attr, val)
+        raise TagNotFound(tag, attr, val)
     return element
 
-class _TagNotFound(Exception):
-
+class TagNotFound(Exception):
     def __init__(self, tag, attr=None, value=None):
         text = 'could not found HTML tag {!r} '.format(tag)
         if attr:
@@ -241,14 +229,13 @@ class _TagNotFound(Exception):
                 text += '{!r}'.format(value)
         Exception.__init__(self, text)
 
-# A class which makes request for fetching HTML page:
 
 class Request:
-
-    def __init__(self
-                ,url='http://time.ir'
-                ,user_agent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0'
-                ,headers = {'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'}):
+ """A class which makes request for fetching HTML page """
+    def __init__(self,
+                url='http://time.ir',
+                user_agent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0',
+                headers = {'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'}):
         self.url = url
         for (key, _) in headers.items():
             if key.lower() == 'user-agent':
@@ -257,19 +244,17 @@ class Request:
             headers['user-agent'] = user_agent
         self.headers = headers
 
-
     def get(self):
         request = requests.get(self.url, headers=self.headers)
         body = request.text
         assert(len(body) > 10240) # It's normals size is about 80K, but wee need at least 10K to process
         return body
 
-# An HTML parser which accepts some transformers, and after parsing HTML
-#  page, runs each transformer with parsed data
-
 
 class HTMLParser:
-    
+    """An HTML parser which accepts some transformers, and after parsing HTML 
+       page, runs each transformer with parsed data"""
+
     def __init__(self, text, transformers):
         self.html = lxml.html.fromstring(text)
         self.transformers = transformers

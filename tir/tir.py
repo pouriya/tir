@@ -233,10 +233,9 @@ class TagNotFound(Exception):
 class Request:
  """A class which makes request for fetching HTML page """
     def __init__(self,
-                url='http://time.ir',
-                user_agent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0',
-                headers = {'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'}):
-        self.url = url
+            user_agent='Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0',
+            headers = {'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'}):
+        self.url='http://time.ir',
         for (key, _) in headers.items():
             if key.lower() == 'user-agent':
                 break

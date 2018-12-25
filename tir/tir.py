@@ -153,7 +153,7 @@ def transform_number(number):
 
 
 def transform_month(month):
-    if len(month) < 3: # Solar months shoudl contain at least 3 characterss
+    if len(month) < 2: # Solar months shoudl contain at least 2 characterss
         raise ValueError('unknown solar-hijri month {!r}'.format(month))
     farsi_month_table = [('Farvardin',   (1601, None))  # ف
                         ,('Ordibehesht', (1575, 1585))  # ار

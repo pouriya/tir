@@ -81,7 +81,7 @@ if opts.about:
     sys.exit(0)
 
 def find_dates(html):
-    container_top = search(html.body, 'div', 'class', ('container top',))
+    container_top = search(html.body, 'div', 'class', 'topWrapper')
     date = search(container_top, 'div', 'class', ('todayDate',))
     rows = search(date, 'div', 'class', 'row')
     solar = find_date(rows, 'shamsi')
@@ -107,7 +107,7 @@ def find_date(rows, _type):
 
 
 def find_calendar(html):
-    container_top = search(html.body, 'div', 'class', ('container top',))
+    container_top = search(html.body, 'div', 'class', 'topWrapper')
     calendar_wrapper = search(container_top, 'div', 'class', ('calendarWrapper',))
     calendar_container = search(calendar_wrapper, 'div', 'id', ('CalendarContainer',))
     event_calendar = search(calendar_container, 'div', 'class', 'eventCalendar')
@@ -147,7 +147,7 @@ def parse_day(day):
 
 
 def find_quote(html):
-    container_top = search(html.body, 'div', 'class', ('container top',))
+    container_top = search(html.body, 'div', 'class', 'topWrapper')
     random_quote = search(container_top, 'div', 'class', 'randomQuote')
     author = search(random_quote, 'a', 'class', ('quoteAuthor',)).text
     quote = search(random_quote, 'span', 'class', ('quoteText',)).text

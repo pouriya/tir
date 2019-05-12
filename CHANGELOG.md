@@ -1,25 +1,10 @@
-### 18.11.6
+### 19.5.12
 * **Fix(es):**
 
-    * skip exceptions detail in notifying  
-
-    * skip notify exception  
-
-* **Feature(s):**
-
-    * handle KeyboardInterrupt exception  
+    * get rid of 'topWrapper' tag  
 
 * **Refactor(s):**
 
-    * use one function for notifier warning  
+    * month name format  
 
-    * make holidays notify message farsi  
-
-    * separate library and crawler  
-
-### 18.11.9
-* **Fix(es):**
-
-    * start and end of window color for qamari and gregorian days  
-
-Generated at 2018-11-09 16:51
+Generated at 2019-05-13 00:01

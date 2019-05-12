@@ -347,16 +347,10 @@ class PrintDate:
         self._print('{:^10}'.format(self.date.weekday), 'w')
         self._print(' ')
         self._print(self.date.day, 'd')
-        spaces = 10 - len(self.date.month_name)
-        if spaces % 2 == 0:
-            (left, right) = (spaces // 2, spaces // 2)
-        else:
-            (left, right) = (spaces // 2 + 1, spaces // 2)
-        self._print(' ' * left)
-        self._print(self.date.month_name, 'M')
+        self._print('{:^13}'.format(self.date.month_name), 'M')
         self._print('(')
         self._print(self.date.month, 'm')
-        self._print(')' + (' ' * right))
+        self._print(') ')
         self._print(self.date.year, 'y')
         self._print(' ')
         self._print('{:^10}'.format(self.date.season_name), int(self.date.season))

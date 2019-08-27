@@ -114,7 +114,6 @@ def find_calendar(html):
     main_calendar = search(event_calendar, 'div', 'class', 'mainCalendar')
     day_list = search(main_calendar, 'div', 'class', 'dayList')
     day_list = [parse_day(day) for day in day_list.getchildren() if day.tag != 'br']
-    assert(len(day_list) == 35)
     return day_list
 
 

@@ -246,7 +246,7 @@ class _TagNotFound(Exception):
 class Request:
 
     def __init__(self
-                ,url='http://time.ir'
+                ,url='http://www.time.ir' #/fa/main'
                 ,user_agent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0'
                 ,headers = {'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'}):
         self.url = url
@@ -261,7 +261,9 @@ class Request:
     def get(self):
         request = requests.get(self.url, headers=self.headers)
         body = request.text
-        assert(len(body) > 10240) # It's normals size is about 80K, but wee need at least 10K to process
+        if len(body) < 36000:
+                request = requests.get(self.url + '/fa/main', headers=self.headers)
+                body = request.text
         return body
 
 # An HTML parser which accepts some transformers, and after parsing HTML

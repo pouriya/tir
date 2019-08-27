@@ -9,13 +9,13 @@ Have [**time.ir**](http://time.ir) in shell!
 #### Download
 Using `git`:  
 ```sh
-~ $ git clone --depth 1 --branch 19.5.15 https://github.com/Pouriya-Jahanbakhsh/tir && cd tir
+~ $ git clone --depth 1 --branch 19.08.28 https://github.com/Pouriya-Jahanbakhsh/tir && cd tir
 ~/tir $
 ```
 Using `wget`:  
 ```sh
-~ $ wget https://github.com/Pouriya-Jahanbakhsh/tir/archive/19.5.15.tar.gz && tar xf 19.5.15.tar.gz && cd tir-19.5.15
-~/tir-19.5.15 $
+~ $ wget https://github.com/Pouriya-Jahanbakhsh/tir/archive/19.08.28.tar.gz && tar xf 19.08.28.tar.gz && cd tir-19.08.28
+~/tir-19.08.28 $
 ```
 
 #### Dependencies

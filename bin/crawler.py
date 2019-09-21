@@ -185,7 +185,10 @@ class DrawCalendar:
         self._draw_header()
         offset = 0
         week = []
-        while offset < 35:
+        count = 35
+        if len(self.days) == 42:
+            count = 42
+        while offset < count:
             week.append((offset, self.days[offset]))
             if len(week) == 7:
                 self._draw_week(week)

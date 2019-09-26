@@ -442,8 +442,6 @@ class NotifyHolidays(Notify):
                 day1 = day
         return (day1, day2)
 
-from datetime import date
-
 
 # class for check request body in cache, if once fetched that date
 # it's not request again instead get the data from cache

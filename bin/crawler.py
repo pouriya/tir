@@ -443,8 +443,8 @@ class NotifyHolidays(Notify):
         return (day1, day2)
 
 
-# class for check request body in cache, if once fetched that date
-# it's not request again instead get the data from cache
+# class for check&save request body in local cache, once saved it's not send
+# another request in the day, instead get data from local cache
 # it will improve the performance and save time
     
 class Caching:

@@ -477,12 +477,12 @@ class Caching:
             with open(self.file_path, 'w'): pass
 
     def write_response(self, body):
-        body = str(date.today()) + body
+        body = str(datetime.date.today()) + body
         with open(self.file_path, 'w', encoding= "utf-8") as cache_file:
             cache_file.write(body)
 
     def is_today(self, cache_date):
-        return str(date.today()) == cache_date
+        return str(datetime.date.today()) == cache_date
 
 
 def warn_notifier_error(command, exception):

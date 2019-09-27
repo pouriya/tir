@@ -55,6 +55,12 @@ Note that on `FreeBSD` it's better to link your `python3.*` to `python3`:
 ```
 Or edit `Makefile` and first line of `./bin/crawler.py` and place your own Python 3 command
 
+  #### Notification is not show for you?
+  just run this command to reinstall or install libraries to solve the problem:
+  ```
+  ~ $ sudo apt-get --reinstall install libnotify-bin notify-osd
+  ```
+  
 #### install `tir` itself
 On Linux distributions run:
 ```sh

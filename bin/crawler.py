@@ -17,6 +17,9 @@ import subprocess
 import traceback
 from optparse import OptionParser
 import datetime
+from pathlib import Path
+import os
+
 
 op = OptionParser()
 op.add_option('-s'
@@ -439,6 +442,48 @@ class NotifyHolidays(Notify):
                 day1 = day
         return (day1, day2)
 
+# class for check&save request body in local cache, once saved it's not send
+# another request in the day, instead get data from local cache
+# it will improve the performance and save time
+    
+class Caching:
+    file_path = ""
+
+    def check_cache(self):
+        self.file_path = self.cache_folder() + '/.tir_cache'
+        cache_file_content = self.get_read_file()
+        if not cache_file_content:
+            return ""
+        finally_cache = {
+            'date' : cache_file_content[:10],
+            'body' : cache_file_content[11:],
+        }
+        return finally_cache
+
+    def cache_folder(self):
+        cache_folder = Path(str(Path.home()) + '/.cache/')
+        if not cache_folder.is_dir():
+            os.mkdir(check_cache)
+        return str(cache_folder)
+
+    def get_read_file(self):
+        self.check_file_exist(self.file_path)
+        with open(self.file_path) as cache_file:
+            return cache_file.read()
+
+    def check_file_exist(self, file_path):
+        if not os.path.exists(self.file_path):
+            with open(self.file_path, 'w'): pass
+
+    def write_response(self, body):
+        body = str(datetime.date.today()) + body
+        with open(self.file_path, 'w', encoding= "utf-8") as cache_file:
+            cache_file.write(body)
+
+    def is_today(self, cache_date):
+        return str(datetime.date.today()) == cache_date
+
+
 def warn_notifier_error(command, exception):
     text = 'Notifier ERROR: could not work with command {!r} on this system'.format(command)
     if opts.color:
@@ -446,7 +491,14 @@ def warn_notifier_error(command, exception):
     print(text)
 
 def main():
-    data = Request().get()
+    cache = Caching()
+    cache_content = cache.check_cache()
+    data = ""
+    if not cache_content or not cache.is_today(cache_content['date']):
+        data = Request().get()
+        cache.write_response(data)
+    else:
+        data = cache_content['body']
     transformers = {1: find_dates
                    ,2: find_calendar
                    ,3: find_quote}

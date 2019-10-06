@@ -78,6 +78,13 @@ op.add_option('-a'
              ,dest='about'
              ,const=True
              ,default=False)
+op.add_option('-u'
+             ,'--update-cache'
+             ,help='if cache data exists, updates its data'
+             ,action='store_const'
+             ,dest='update_cache'
+             ,const=True
+             ,default=False)
 opts = op.parse_args()[0]
 if opts.about:
     print('Python crawler for http://time.ir website')
@@ -601,7 +608,9 @@ update_cache = False
 data         = ""
 try:
     cache_content = cache.check_cache()
-    if not cache_content or not cache.is_today(cache_content['date']):
+    if opts.update_cache or \
+       not cache_content or \
+       not cache.is_today(cache_content['date']):
         data = Request().get()
         update_cache = True
     else:

@@ -482,6 +482,10 @@ class Caching:
 
     def is_today(self, cache_date):
         return str(datetime.date.today()) == cache_date
+    
+    def delete(self):
+        with open(self.file_path, 'w', encoding= "utf-8") as cache_file:
+            cache_file.write("")
 
 
 def warn_notifier_error(command, exception):
@@ -490,15 +494,7 @@ def warn_notifier_error(command, exception):
             text = '\033[1;30m' + text + '\033[0m' # gray (dark)
     print(text)
 
-def main():
-    cache = Caching()
-    cache_content = cache.check_cache()
-    data = ""
-    if not cache_content or not cache.is_today(cache_content['date']):
-        data = Request().get()
-        cache.write_response(data)
-    else:
-        data = cache_content['body']
+def main(data):
     transformers = {1: find_dates
                    ,2: find_calendar
                    ,3: find_quote}
@@ -599,11 +595,28 @@ def main():
         print(text)
 
 status_code = 0
+cache        = Caching()
+read_cache   = False
+update_cache = False
+data         = ""
 try:
-    main()
+    cache_content = cache.check_cache()
+    if not cache_content or not cache.is_today(cache_content['date']):
+        data = Request().get()
+        update_cache = True
+    else:
+        data = cache_content['body']
+        read_cache = True
+    main(data)
+    # Everything is ok to keep new data in cache:
+    if update_cache:
+        cache.write_response(data)
 except KeyboardInterrupt:
     print()
 except Exception as exception:
+    # We have red cache and something went wrong, So it's better to delete it:
+    if read_cache:
+        cache.delete()
     print()
     print()
     logger.error('It seems that something was changed in time.ir or themes!\n'\

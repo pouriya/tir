@@ -135,6 +135,7 @@ Options:
   -q, --quote      Does not notify for quote
   -H, --holidays   Does not notify for holidays
   -a, --about      shows program's description and exits
+  -u, --update-cache  if cache data exists, updates its data
 ```
 So for example `tir -s -g -c -C -q -H` will result:
 ```sh

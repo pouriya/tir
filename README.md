@@ -2,8 +2,7 @@
 Have [**time.ir**](http://time.ir) in shell!
 
 
-![tir-screenshot](https://github.com/pouriya/tir/releases/download/20.07.26/tir.png)
-
+![tir](https://user-images.githubusercontent.com/20663776/88477251-a8d52e80-cf53-11ea-81de-fc878e6f2629.png)
 
 ## Installation
 #### Download

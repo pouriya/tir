@@ -2,19 +2,19 @@
 Have [**time.ir**](http://time.ir) in shell!
 
 
-![tir-screenshot](https://user-images.githubusercontent.com/20663776/48029334-dbb70d80-e145-11e8-86ce-20746f1d89d2.png)
+![tir-screenshot](https://github.com/pouriya/tir/releases/download/20.07.26/tir.png)
 
 
 ## Installation
 #### Download
 Using `git`:  
 ```sh
-~ $ git clone --depth 1 --branch 20.07.26 https://github.com/Pouriya-Jahanbakhsh/tir && cd tir
+~ $ git clone --depth 1 --branch 20.07.26 https://github.com/Pouriya/tir && cd tir
 ~/tir $
 ```
 Using `wget`:  
 ```sh
-~ $ wget https://github.com/Pouriya-Jahanbakhsh/tir/archive/20.07.26.tar.gz && tar xf 20.07.26.tar.gz && cd tir-20.07.26
+~ $ wget https://github.com/Pouriya/tir/archive/20.07.26.tar.gz && tar xf 20.07.26.tar.gz && cd tir-20.07.26
 ~/tir-20.07.26 $
 ```
 

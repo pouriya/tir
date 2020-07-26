@@ -160,6 +160,7 @@ def transform_month(month):
                         ,('Khordad',     (1582, None))  # خ
                         ,('Tir',         (1578, None))  # ت
                         ,('Mordad',      (1605, 1585))  # مر
+                        ,('Mordad',      (1575, 1614))  # اَ
                         ,('Shahrivar',   (1588, None))  # ش
                         ,('Mehr',        (1605, 1607))  # مه
                         ,('Aban',        (1575, 1576))  # اب
